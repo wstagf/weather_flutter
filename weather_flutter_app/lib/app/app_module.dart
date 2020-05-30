@@ -1,3 +1,4 @@
+import 'package:weather_flutter_app/app/repository/city_repository.dart';
 import 'package:weather_flutter_app/app/splash/splash_controller.dart';
 import 'package:weather_flutter_app/app/app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -10,6 +11,7 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         Bind((i) => SplashController()),
         Bind((i) => AppController()),
+        Bind((i) => CityRepository()),
       ];
 
   @override
