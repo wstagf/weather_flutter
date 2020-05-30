@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -9,6 +10,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      navigatorKey: Get.key,
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );
