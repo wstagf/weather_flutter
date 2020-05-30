@@ -8,7 +8,23 @@ class SplashWidget extends StatelessWidget {
     SizeUtils.init(context);
     return Scaffold(
       backgroundColor: ThemeUtils.getColor('color1'),
-      body: CircularProgressIndicator(),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              ThemeUtils.getColor('color2'),
+              ThemeUtils.getColor('color3'),
+            ])),
+        child: Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(
+              ThemeUtils.getColor('color1'),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
