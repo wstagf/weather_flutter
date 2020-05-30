@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:weather_flutter_app/app/splash/splash_controller.dart';
 import 'package:weather_flutter_app/app/utils/size_utils.dart';
 import 'package:weather_flutter_app/app/utils/theme_utils.dart';
 
@@ -7,11 +9,12 @@ class SplashWidget extends StatefulWidget {
   _SplashWidgetState createState() => _SplashWidgetState();
 }
 
-class _SplashWidgetState extends State<SplashWidget> {
+class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    controller.getCities();
   }
 
   @override

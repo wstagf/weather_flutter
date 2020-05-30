@@ -1,15 +1,16 @@
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:weather_flutter_app/app/repository/city_repository.dart';
 
 part 'splash_controller.g.dart';
 
 class SplashController = _SplashBase with _$SplashController;
 
 abstract class _SplashBase with Store {
-  @observable
-  int value = 0;
+  CityRepository cityRepository = Modular.get<CityRepository>();
 
   @action
-  void increment() {
-    value++;
+  Future getCities() async {
+    await cityRepository.getCities();
   }
 }
