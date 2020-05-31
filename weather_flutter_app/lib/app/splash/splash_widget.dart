@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:weather_flutter_app/app/splash/splash_controller.dart';
@@ -18,8 +19,8 @@ class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
   }
 
   Future<void> loadData() async {
-    await controller.getCities();
-    Modular.to.pushReplacementNamed("/home");
+    //await controller.getCities();
+    //  Modular.to.pushReplacementNamed("/home");
   }
 
   @override
@@ -27,24 +28,35 @@ class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
     SizeUtils.init(context);
     return Scaffold(
       backgroundColor: ThemeUtils.getColor('color1'),
-      body: Container(
-        decoration: BoxDecoration(
+      body: Stack(children: [
+        Center(
+          child: FlareActor("assets/animations/City-cloud.flr",
+              alignment: Alignment.center,
+              fit: BoxFit.contain,
+              isPaused: false,
+              animation: "stop"),
+        ),
+        Container(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-                stops: [0.5, 0.8],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  ThemeUtils.getColor('color2'),
-                  ThemeUtils.getColor('color3'),
-                ])),
-        child: Center(
+              stops: [0.0, 0.9],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ThemeUtils.getColor('color1').withAlpha(200),
+                ThemeUtils.getColor('color4').withAlpha(120),
+              ],
+            ),
+          ),
+        ),
+        Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
               ThemeUtils.getColor('color1'),
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }
