@@ -19,8 +19,8 @@ class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
   }
 
   Future<void> loadData() async {
-    //await controller.getCities();
-    //  Modular.to.pushReplacementNamed("/home");
+    await controller.getCities();
+    Modular.to.pushReplacementNamed("/home");
   }
 
   @override
