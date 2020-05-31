@@ -14,7 +14,12 @@ class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.getCities();
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    await controller.getCities();
+    Modular.to.pushReplacementNamed("/home");
   }
 
   @override
