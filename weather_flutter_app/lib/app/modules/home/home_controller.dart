@@ -28,6 +28,12 @@ abstract class _HomeBase with Store {
       StoreUtils.statusCheck(_weatherCurrentFuture);
 
   @action
+  initPage() async {
+    changeCity(City.fromMap(
+        {"id": 6861, "name": "Goiânia", "state": "GO", "country": "BR  "}));
+  }
+
+  @action
   getWeaterCurrent() async {
     try {
       _weatherCurrentFuture =

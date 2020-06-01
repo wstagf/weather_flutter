@@ -24,7 +24,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.getWeaterCurrent();
+    controller.initPage();
     super.initState();
   }
 
