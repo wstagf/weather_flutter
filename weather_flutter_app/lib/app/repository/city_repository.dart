@@ -6,6 +6,10 @@ class CityRepository {
   CityService cityService = CityService();
 
   Future getCities() async {
-    cities = await cityService.getCities();
+    try {
+      cities = await cityService.getCities();
+    } catch (e) {
+      throw (e);
+    }
   }
 }
