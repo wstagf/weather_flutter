@@ -26,166 +26,145 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   }
 
   Widget _makeContent() {
-    return Scaffold(
-      backgroundColor: ThemeUtils.getColor('color1'),
-      body: Stack(children: [
-        Center(
-          child: FlareActor("assets/animations/City-cloud.flr",
-              controller: flareController,
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              isPaused: false,
-              animation: "stop"),
+    return Column(
+      children: <Widget>[
+        Text(
+          controller.weatherCurrent.data.condition,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 18),
         ),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              stops: [0.0, 0.9],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                ThemeUtils.getColor('color1').withAlpha(200),
-                ThemeUtils.getColor('color4').withAlpha(120),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text('Temperatura '),
+                Text(
+                  controller.weatherCurrent.data.temperature.toString() + " °C",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text('Direção'),
+                Text(
+                  controller.weatherCurrent.data.wind_direction,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
               ],
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextFormField(
-                controller: controller.textEditingController,
-                onFieldSubmitted: controller.changeCity,
-                onTap: controller.clearInput,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
-                decoration: InputDecoration(
-                  hintText: "Buscar cidade",
-                  hintStyle: TextStyle(fontSize: 20),
-                  suffixIcon: Icon(
-                    Icons.search,
-                  ),
+            Column(
+              children: <Widget>[
+                Text('Umidade relativa'),
+                Text(
+                  controller.weatherCurrent.data.wind_velocity
+                          .toStringAsFixed(0) +
+                      ' %',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                controller.weatherCurrent.data.condition,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Text('Temperatura '),
-                      Text(
-                        controller.weatherCurrent.data.temperature.toString() +
-                            " °C",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('Direção'),
-                      Text(
-                        controller.weatherCurrent.data.wind_direction,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Text('Umidade relativa'),
-                      Text(
-                        controller.weatherCurrent.data.wind_velocity
-                                .toStringAsFixed(0) +
-                            ' %',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('Velocidade'),
-                      Text(
-                        controller.weatherCurrent.data.wind_velocity
-                                .toStringAsFixed(0) +
-                            ' km/h',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text('Velocidade'),
+                Text(
+                  controller.weatherCurrent.data.wind_velocity
+                          .toStringAsFixed(0) +
+                      ' km/h',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ],
         ),
-      ]),
+      ],
     );
   }
 
   Widget _makeLoading() {
-    return Scaffold(
-      backgroundColor: ThemeUtils.getColor('color1'),
-      body: Stack(children: [
-        Center(
-          child: FlareActor("assets/animations/City-cloud.flr",
-              controller: flareController,
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              isPaused: false,
-              animation: "stop"),
+    return Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(
+          ThemeUtils.getColor('color1'),
         ),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              stops: [0.0, 0.9],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                ThemeUtils.getColor('color1').withAlpha(200),
-                ThemeUtils.getColor('color4').withAlpha(120),
-              ],
-            ),
-          ),
-        ),
-        Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(
-              ThemeUtils.getColor('color1'),
-            ),
-          ),
-        ),
-      ]),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      switch (controller.weatherCurrentState) {
-        case StoreState.loaded:
-          return _makeContent();
-          break;
+    return Scaffold(
+      backgroundColor: ThemeUtils.getColor('color1'),
+      body: Stack(
+        children: [
+          Center(
+            child: FlareActor("assets/animations/City-cloud.flr",
+                controller: flareController,
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                isPaused: false,
+                animation: "stop"),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                stops: [0.0, 0.9],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  ThemeUtils.getColor('color1').withAlpha(200),
+                  ThemeUtils.getColor('color4').withAlpha(120),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                TextFormField(
+                  controller: controller.textEditingController,
+                  onFieldSubmitted: controller.changeCity,
+                  onTap: controller.clearInput,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20),
+                  decoration: InputDecoration(
+                    hintText: "Buscar cidade",
+                    hintStyle: TextStyle(fontSize: 20),
+                    suffixIcon: Icon(
+                      Icons.search,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Observer(builder: (context) {
+                  switch (controller.weatherCurrentState) {
+                    case StoreState.loaded:
+                      return _makeContent();
+                      break;
 
-        case StoreState.initial:
-        case StoreState.loading:
-        case StoreState.error:
-        default:
-          return _makeLoading();
-          break;
-      }
-    });
+                    case StoreState.initial:
+                    case StoreState.loading:
+                    case StoreState.error:
+                    default:
+                      return _makeLoading();
+                      break;
+                  }
+                }),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
