@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
@@ -147,7 +148,25 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   controller: controller.textEditingController,
                   itemSorter: controller.autoCompleteTextFieldSorter,
                   itemBuilder: (BuildContext context, City suggestion) {
-                    return Text(suggestion.name);
+                    return Container(
+                      padding: EdgeInsets.all(5),
+                      margin: EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            child: AutoSizeText(
+                              suggestion.name,
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                          Text(
+                            suggestion.state,
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   key: controller.key,
                   suggestions: controller.cityRepository.cities,
