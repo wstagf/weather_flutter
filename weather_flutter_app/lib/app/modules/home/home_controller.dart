@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:weather_flutter_app/app/models/store_state.dart';
@@ -29,8 +30,26 @@ abstract class _HomeBase with Store {
           ObservableFuture(weaterRepository.getWeatherCurrent());
 
       weatherCurrent = await _weatherCurrentFuture;
+      textEditingController.text = weatherCurrent.name;
+      cityCurrentName = weatherCurrent.name;
     } catch (e) {
       print(e);
     }
+  }
+
+  String cityCurrentName = '';
+
+  TextEditingController textEditingController = TextEditingController();
+
+  @action
+  Future<void> changeCity(String city) {
+    if (textEditingController.text.isNotEmpty) {
+      print(city);
+    }
+  }
+
+  @action
+  void clearInput() {
+    textEditingController.text = '';
   }
 }

@@ -55,13 +55,22 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                controller.weatherCurrent.name,
+              TextFormField(
+                controller: controller.textEditingController,
+                onFieldSubmitted: controller.changeCity,
+                onTap: controller.clearInput,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 36),
+                decoration: InputDecoration(
+                  hintText: "Buscar cidade",
+                  hintStyle: TextStyle(fontSize: 20),
+                  suffixIcon: Icon(
+                    Icons.search,
+                  ),
+                ),
               ),
               SizedBox(
-                height: 10,
+                height: 30,
               ),
               Text(
                 controller.weatherCurrent.data.condition,
