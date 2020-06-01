@@ -8,6 +8,12 @@ class CustomDio {
     _dio = Dio(_options);
   }
 
+  CustomDio.whithOutToken() {
+    _dio = Dio(_options);
+    _dio.interceptors
+        .add(InterceptorsWrapper(onResponse: _onResponse, onError: _onError));
+  }
+
   CustomDio.whithAutentication() {
     _dio = Dio(_options);
     _dio.interceptors.add(InterceptorsWrapper(
