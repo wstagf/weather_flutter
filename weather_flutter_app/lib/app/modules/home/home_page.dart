@@ -1,6 +1,10 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:weather_flutter_app/app/models/store_state.dart';
+import 'package:weather_flutter_app/app/modules/home/home_controller.dart';
 import 'package:weather_flutter_app/app/utils/theme_utils.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,24 +15,23 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  FlareController controller;
+class _HomePageState extends ModularState<HomePage, HomeController> {
+  FlareController flareController;
 
   @override
   void initState() {
     // TODO: implement initState
-
+    controller.getWeaterCurrent();
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _makeContent() {
     return Scaffold(
       backgroundColor: ThemeUtils.getColor('color1'),
       body: Stack(children: [
         Center(
           child: FlareActor("assets/animations/City-cloud.flr",
-              controller: controller,
+              controller: flareController,
               alignment: Alignment.center,
               fit: BoxFit.contain,
               isPaused: false,
@@ -53,47 +56,41 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                "Goiânia",
+                controller.weatherCurrent.name,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 36),
               ),
               Text(
-                "condition",
+                controller.weatherCurrent.data.condition,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 28),
               ),
               Text(
-                "temperature °C",
+                controller.weatherCurrent.data.temperature.toString() + " °C",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24),
               ),
               Text(
-                "sensation °C",
+                controller.weatherCurrent.data.sensation.toString() + " °C",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24),
               ),
               Text(
-                "wind_direction",
+                controller.weatherCurrent.data.wind_direction,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24),
               ),
               Text(
-                "wind_velocity",
+                controller.weatherCurrent.data.wind_velocity
+                        .toStringAsFixed(0) +
+                    ' km/h',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24),
               ),
               Text(
-                "humidity",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              Text(
-                "wind_direction",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              Text(
-                "wind_velocity",
+                controller.weatherCurrent.data.wind_velocity
+                        .toStringAsFixed(0) +
+                    ' %',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 24),
               ),
@@ -102,5 +99,59 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
     );
+  }
+
+  Widget _makeLoading() {
+    return Scaffold(
+      backgroundColor: ThemeUtils.getColor('color1'),
+      body: Stack(children: [
+        Center(
+          child: FlareActor("assets/animations/City-cloud.flr",
+              controller: flareController,
+              alignment: Alignment.center,
+              fit: BoxFit.contain,
+              isPaused: false,
+              animation: "stop"),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              stops: [0.0, 0.9],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ThemeUtils.getColor('color1').withAlpha(200),
+                ThemeUtils.getColor('color4').withAlpha(120),
+              ],
+            ),
+          ),
+        ),
+        Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(
+              ThemeUtils.getColor('color1'),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(builder: (context) {
+      switch (controller.weatherCurrentState) {
+        case StoreState.loaded:
+          return _makeContent();
+          break;
+
+        case StoreState.initial:
+        case StoreState.loading:
+        case StoreState.error:
+        default:
+          return _makeLoading();
+          break;
+      }
+    });
   }
 }
