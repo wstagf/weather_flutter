@@ -13,14 +13,12 @@ class SplashWidget extends StatefulWidget {
 class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadData();
   }
 
   Future<void> loadData() async {
     await controller.getCities();
-    await controller.getWeaterCurrent();
     Modular.to.pushReplacementNamed("/home");
   }
 
