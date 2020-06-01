@@ -18,7 +18,9 @@ https://www.behance.net/gallery/93022937/Weather-app?tracking_source=search_proj
 * AutoComplete Input
 
 
-* Video do app http://aguiarobo.com/WeatherFlutter.avi
+*  
+[![Video do app](http://aguiarobo.com/WeatherFlutter.gif)](http://aguiarobo.com/WeatherFlutter.avi)
+
 
 
 
