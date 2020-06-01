@@ -9,6 +9,7 @@ class AppWidget extends StatelessWidget {
       title: 'Wheater Flutter App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Montserrat',
       ),
       navigatorKey: Modular.navigatorKey,
       initialRoute: '/',
