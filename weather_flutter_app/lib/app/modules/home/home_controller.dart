@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:weather_flutter_app/app/models/store_state.dart';
 import 'package:weather_flutter_app/app/models/weather_now.dart';
+import 'package:weather_flutter_app/app/repository/city_repository.dart';
 import 'package:weather_flutter_app/app/repository/weather_repository.dart';
 import 'package:weather_flutter_app/app/utils/store_utils.dart';
 
@@ -12,6 +13,7 @@ class HomeController = _HomeBase with _$HomeController;
 
 abstract class _HomeBase with Store {
   WeaterRepository weaterRepository = Modular.get<WeaterRepository>();
+  CityRepository cityRepository = Modular.get<CityRepository>();
 
   @observable
   WeatherNowResponse weatherCurrent = WeatherNowResponse();
@@ -42,9 +44,17 @@ abstract class _HomeBase with Store {
   TextEditingController textEditingController = TextEditingController();
 
   @action
-  Future<void> changeCity(String city) {
+  Future<void> changeCity(String citySearch) async {
     if (textEditingController.text.isNotEmpty) {
+      var city = cityRepository.cities
+          .where((element) => element.name.contains(citySearch))
+          .toList();
       print(city);
+      var isRegistred = await weaterRepository.registerCity(city[0]);
+
+      if (isRegistred) {
+        getWeaterCurrent();
+      }
     }
   }
 

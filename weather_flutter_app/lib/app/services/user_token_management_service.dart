@@ -12,13 +12,12 @@ class UserTokenManagement {
               data: {"localeId[]": cityId},
               options: Options(contentType: Headers.formUrlEncodedContentType))
           .then((res) {
-        return res.data.toList();
+        return res.data;
       });
 
       RegisterCityResponse registerCityResponse =
           RegisterCityResponse.fromMap(data);
 
-      print(registerCityResponse);
       return registerCityResponse;
     } catch (e) {
       throw (e);

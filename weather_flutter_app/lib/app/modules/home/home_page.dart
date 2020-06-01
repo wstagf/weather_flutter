@@ -60,7 +60,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 onFieldSubmitted: controller.changeCity,
                 onTap: controller.clearInput,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 36),
+                style: TextStyle(fontSize: 20),
                 decoration: InputDecoration(
                   hintText: "Buscar cidade",
                   hintStyle: TextStyle(fontSize: 20),
