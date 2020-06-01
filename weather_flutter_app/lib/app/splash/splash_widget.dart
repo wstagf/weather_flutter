@@ -20,6 +20,7 @@ class _SplashWidgetState extends ModularState<SplashWidget, SplashController> {
 
   Future<void> loadData() async {
     await controller.getCities();
+    await controller.getWeaterCurrent();
     Modular.to.pushReplacementNamed("/home");
   }
 
