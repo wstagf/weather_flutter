@@ -5,9 +5,10 @@ class WeaterRepository {
   WeatherNowResponse weatherNowCurrent;
   WeatherNowService weatherNowService = WeatherNowService();
 
-  Future getWeatherCurrent() async {
+  Future<WeatherNowResponse> getWeatherCurrent() async {
     try {
       weatherNowCurrent = await weatherNowService.getWheaterCurrent();
+      return weatherNowCurrent;
     } catch (e) {
       throw (e);
     }
