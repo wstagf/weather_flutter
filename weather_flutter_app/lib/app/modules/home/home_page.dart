@@ -60,39 +60,64 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 36),
               ),
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 controller.weatherCurrent.data.condition,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 28),
+                style: TextStyle(fontSize: 18),
               ),
-              Text(
-                controller.weatherCurrent.data.temperature.toString() + " °C",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
+              SizedBox(
+                height: 10,
               ),
-              Text(
-                controller.weatherCurrent.data.sensation.toString() + " °C",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              Text(
-                controller.weatherCurrent.data.wind_direction,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              Text(
-                controller.weatherCurrent.data.wind_velocity
-                        .toStringAsFixed(0) +
-                    ' km/h',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
-              ),
-              Text(
-                controller.weatherCurrent.data.wind_velocity
-                        .toStringAsFixed(0) +
-                    ' %',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text('Temperatura '),
+                      Text(
+                        controller.weatherCurrent.data.temperature.toString() +
+                            " °C",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Direção'),
+                      Text(
+                        controller.weatherCurrent.data.wind_direction,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text('Umidade relativa'),
+                      Text(
+                        controller.weatherCurrent.data.wind_velocity
+                                .toStringAsFixed(0) +
+                            ' %',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Velocidade'),
+                      Text(
+                        controller.weatherCurrent.data.wind_velocity
+                                .toStringAsFixed(0) +
+                            ' km/h',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
