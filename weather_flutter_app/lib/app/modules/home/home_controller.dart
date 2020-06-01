@@ -1,6 +1,8 @@
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:weather_flutter_app/app/models/city.dart';
 import 'package:weather_flutter_app/app/models/store_state.dart';
 import 'package:weather_flutter_app/app/models/weather_now.dart';
 import 'package:weather_flutter_app/app/repository/city_repository.dart';
@@ -44,15 +46,9 @@ abstract class _HomeBase with Store {
   TextEditingController textEditingController = TextEditingController();
 
   @action
-  Future<void> changeCity(String citySearch) async {
-    if (textEditingController.text.isNotEmpty) {
-      var city = cityRepository.cities
-          .where((element) => element.name.contains(citySearch))
-          .toList();
-      print(city);
-      var isRegistred = await weaterRepository.registerCity(city[0]);
-
-      if (isRegistred) {
+  Future<void> changeCity(City citySearch) async {
+    if (citySearch != null) {
+      if (await weaterRepository.registerCity(citySearch)) {
         getWeaterCurrent();
       }
     }
@@ -61,5 +57,15 @@ abstract class _HomeBase with Store {
   @action
   void clearInput() {
     textEditingController.text = '';
+  }
+
+  GlobalKey key = new GlobalKey<AutoCompleteTextFieldState<City>>();
+
+  bool autoCompleteTextFieldFilter(City suggestion, String input) {
+    return suggestion.name.toLowerCase().startsWith(input.toLowerCase());
+  }
+
+  int autoCompleteTextFieldSorter(City a, City b) {
+    return a.name.toString().compareTo(b.name.toString());
   }
 }

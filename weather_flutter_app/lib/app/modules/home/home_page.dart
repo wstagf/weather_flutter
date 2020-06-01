@@ -1,8 +1,10 @@
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:weather_flutter_app/app/models/city.dart';
 import 'package:weather_flutter_app/app/models/store_state.dart';
 import 'package:weather_flutter_app/app/modules/home/home_controller.dart';
 import 'package:weather_flutter_app/app/utils/theme_utils.dart';
@@ -97,6 +99,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     );
   }
 
+  Widget _makeError() {
+    return Center(child: Text('Erro ao buscar dados'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,11 +135,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                TextFormField(
-                  controller: controller.textEditingController,
-                  onFieldSubmitted: controller.changeCity,
-                  onTap: controller.clearInput,
-                  textAlign: TextAlign.center,
+                new AutoCompleteTextField<City>(
                   style: TextStyle(fontSize: 20),
                   decoration: InputDecoration(
                     hintText: "Buscar cidade",
@@ -142,6 +144,15 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       Icons.search,
                     ),
                   ),
+                  controller: controller.textEditingController,
+                  itemSorter: controller.autoCompleteTextFieldSorter,
+                  itemBuilder: (BuildContext context, City suggestion) {
+                    return Text(suggestion.name);
+                  },
+                  key: controller.key,
+                  suggestions: controller.cityRepository.cities,
+                  itemSubmitted: controller.changeCity,
+                  itemFilter: controller.autoCompleteTextFieldFilter,
                 ),
                 SizedBox(
                   height: 30,
@@ -152,9 +163,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       return _makeContent();
                       break;
 
+                    case StoreState.error:
+                      return _makeError();
+                      break;
                     case StoreState.initial:
                     case StoreState.loading:
-                    case StoreState.error:
+
                     default:
                       return _makeLoading();
                       break;
