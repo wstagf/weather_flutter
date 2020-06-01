@@ -25,6 +25,7 @@ dependencies:
   flutter_mobx: ^1.1.0
   mobx: ^1.2.1
   flutter_modular: ^1.2.5+1
+  autocomplete_textfield: ^1.7.3
   flare_flutter: ^2.0.3
   flutter:
     sdk: flutter
