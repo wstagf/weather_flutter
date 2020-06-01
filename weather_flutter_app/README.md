@@ -8,3 +8,16 @@ https://www.behance.net/gallery/93022937/Weather-app?tracking_source=search_proj
 
 * code generator
     - flutter packages pub run build_runner watch --delete-conflicting-outputs
+
+
+### Tecnologias
+
+* Custom Theme
+* Splash,
+* Mobx, módularização do app
+* Dio, Requisições á api climatempo, GET, PUT
+* Http Interceptors
+* Repository Pattern
+* Services
+* Complex Animations - RIVE/Flare
+* AutoComplete Input
