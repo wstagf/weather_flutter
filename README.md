@@ -2,6 +2,9 @@
 
 Projeto para exemplo de como consumir uma api utilizando flutter
 
+[![Video do app](http://aguiarobo.com/WeatherFlutter.gif)](http://aguiarobo.com/WeatherFlutter.avi)
+
+
 ## Design 
 https://www.behance.net/gallery/93022937/Weather-app?tracking_source=search_projects_recommended%7Cweather%20app
 
@@ -17,9 +20,6 @@ https://www.behance.net/gallery/93022937/Weather-app?tracking_source=search_proj
 * Complex Animations - RIVE/Flare
 * AutoComplete Input
 
-
-*  
-[![Video do app](http://aguiarobo.com/WeatherFlutter.gif)](http://aguiarobo.com/WeatherFlutter.avi)
 
 
 
