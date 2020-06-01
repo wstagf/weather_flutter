@@ -116,7 +116,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 alignment: Alignment.center,
                 fit: BoxFit.contain,
                 isPaused: false,
-                animation: "stop"),
+                animation: "city-cloud"),
           ),
           Container(
             decoration: BoxDecoration(
